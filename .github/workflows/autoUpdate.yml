@@ -22,21 +22,18 @@ jobs:
         run: |
           echo "Updating log with the current date..." 
           echo "$(date) - Update successful" >> update.py
-          
-      - name: Check if there are changes
-        run: |
-          echo "Checking for changes before committing..."
-          git diff --exit-code || echo "Changes detected!"
 
       - name: Commit and Push if changes exist
         run: |
-          if git diff --exit-code; then
-            echo "No changes to commit"
-          else
+          if [[ -n "$(git status --porcelain)" ]]; then
+            echo "Changes detected! Proceeding with commit..."
             git add update.py
             git commit -m "Auto-commit on $(date)"  # Message de commit avec timestamp
             git push origin main
             echo "Changes pushed to the main branch"  # Confirmation du push
+          else
+            echo "No changes to commit"
+          fi
 
       - name: Completion message
         run: |
