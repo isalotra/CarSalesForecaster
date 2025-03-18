@@ -1,7 +1,7 @@
 name: Auto Commit and Push Workflow
 on:
   schedule:
-    - cron: '0 */1 * * *'  # Exécution automatique toutes les heures
+    - cron: '0 0 */3 * *'  # Exécution automatique toutes les heures
   workflow_dispatch:  # Déclenchement manuel
 
 jobs:
